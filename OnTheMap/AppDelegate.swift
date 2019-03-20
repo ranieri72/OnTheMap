@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  OnTheMap
 //
-//  Created by MTZ-5555-TRANSP on 14/03/19.
+//  Created by Ranieri Aguiar on 14/03/19.
 //  Copyright © 2019 Ranieri. All rights reserved.
 //
 

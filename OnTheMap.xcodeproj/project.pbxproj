@@ -7,21 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		482FF0F62240755600580ADA /* Requester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482FF0F52240755600580ADA /* Requester.swift */; };
+		482FF0F92240780000580ADA /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 482FF0F82240780000580ADA /* StudentLocation.swift */; };
 		48456928223AB3C1005E1B01 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48456927223AB3C1005E1B01 /* AppDelegate.swift */; };
-		4845692A223AB3C1005E1B01 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48456929223AB3C1005E1B01 /* ViewController.swift */; };
 		4845692D223AB3C1005E1B01 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4845692B223AB3C1005E1B01 /* Main.storyboard */; };
 		4845692F223AB3D1005E1B01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4845692E223AB3D1005E1B01 /* Assets.xcassets */; };
 		48456932223AB3D1005E1B01 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 48456930223AB3D1005E1B01 /* LaunchScreen.storyboard */; };
+		486CCFF02241C00F00EF7234 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CCFEF2241C00F00EF7234 /* MapViewController.swift */; };
+		486CCFF22241C03000EF7234 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CCFF12241C03000EF7234 /* TableViewController.swift */; };
+		486CCFF52241C58600EF7234 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CCFF42241C58600EF7234 /* Session.swift */; };
+		486CCFF72241C68400EF7234 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486CCFF62241C68400EF7234 /* User.swift */; };
+		48F6B2F9223C02AD00EE0050 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F6B2F8223C02AD00EE0050 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		482FF0F52240755600580ADA /* Requester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requester.swift; sourceTree = "<group>"; };
+		482FF0F82240780000580ADA /* StudentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		48456924223AB3C1005E1B01 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48456927223AB3C1005E1B01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		48456929223AB3C1005E1B01 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4845692C223AB3C1005E1B01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4845692E223AB3D1005E1B01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		48456931223AB3D1005E1B01 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		48456933223AB3D1005E1B01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		486CCFEF2241C00F00EF7234 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		486CCFF12241C03000EF7234 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		486CCFF42241C58600EF7234 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		486CCFF62241C68400EF7234 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		48F6B2F8223C02AD00EE0050 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +47,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		482FF0F42240752E00580ADA /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				482FF0F52240755600580ADA /* Requester.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		482FF0F7224077EE00580ADA /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				482FF0F82240780000580ADA /* StudentLocation.swift */,
+				486CCFF62241C68400EF7234 /* User.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
 		4845691B223AB3C1005E1B01 = {
 			isa = PBXGroup;
 			children = (
@@ -54,14 +83,35 @@
 		48456926223AB3C1005E1B01 /* OnTheMap */ = {
 			isa = PBXGroup;
 			children = (
+				486CCFF32241C57000EF7234 /* Util */,
+				482FF0F7224077EE00580ADA /* Entity */,
+				482FF0F42240752E00580ADA /* Request */,
+				48456939223ABDC6005E1B01 /* ViewControllers */,
 				48456927223AB3C1005E1B01 /* AppDelegate.swift */,
-				48456929223AB3C1005E1B01 /* ViewController.swift */,
 				4845692B223AB3C1005E1B01 /* Main.storyboard */,
 				4845692E223AB3D1005E1B01 /* Assets.xcassets */,
 				48456930223AB3D1005E1B01 /* LaunchScreen.storyboard */,
 				48456933223AB3D1005E1B01 /* Info.plist */,
 			);
 			path = OnTheMap;
+			sourceTree = "<group>";
+		};
+		48456939223ABDC6005E1B01 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				48F6B2F8223C02AD00EE0050 /* LoginViewController.swift */,
+				486CCFEF2241C00F00EF7234 /* MapViewController.swift */,
+				486CCFF12241C03000EF7234 /* TableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		486CCFF32241C57000EF7234 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				486CCFF42241C58600EF7234 /* Session.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +185,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4845692A223AB3C1005E1B01 /* ViewController.swift in Sources */,
+				486CCFF52241C58600EF7234 /* Session.swift in Sources */,
+				482FF0F92240780000580ADA /* StudentLocation.swift in Sources */,
+				486CCFF22241C03000EF7234 /* TableViewController.swift in Sources */,
+				48F6B2F9223C02AD00EE0050 /* LoginViewController.swift in Sources */,
+				486CCFF72241C68400EF7234 /* User.swift in Sources */,
 				48456928223AB3C1005E1B01 /* AppDelegate.swift in Sources */,
+				486CCFF02241C00F00EF7234 /* MapViewController.swift in Sources */,
+				482FF0F62240755600580ADA /* Requester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,8 +339,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XHWN5KMVUT;
+				DEVELOPMENT_TEAM = Z7X7SUQQ6L;
 				INFOPLIST_FILE = OnTheMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,8 +358,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XHWN5KMVUT;
+				DEVELOPMENT_TEAM = Z7X7SUQQ6L;
 				INFOPLIST_FILE = OnTheMap/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
