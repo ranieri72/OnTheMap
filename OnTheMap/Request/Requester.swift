@@ -37,14 +37,65 @@ class Requester {
                     }
                     Session.students = students
                 }
-                sucess()
+                DispatchQueue.main.async {
+                    sucess()
+                }
             } catch let error as NSError {
-                fail(error.localizedDescription)
+                DispatchQueue.main.async {
+                    fail(error.localizedDescription)
+                }
                 print("Failed to load: \(error.localizedDescription)")
             }
         }
         task.resume()
     }
+    
+    func login(user: User, sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
+        var request = URLRequest(url: URL(string: udaticyUrl)!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        // encoding a JSON body, use a Codable struct
+        request.httpBody = "{\"udacity\": {\"username\": \"\(user.username)\", \"password\": \"\(user.password)\"}}".data(using: .utf8)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            let range = (5..<data!.count)
+            let newData = data?.subdata(in: range)
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: newData!, options: []) as! [String: AnyObject]
+                
+                if let error = json["error"] as? String {
+                    DispatchQueue.main.async {
+                        fail(error)
+                    }
+                    return
+                }
+                
+                var requestUser = User()
+                if let account = json["account"] as? [String: AnyObject],
+                    let session = json["session"] as? [String: AnyObject] {
+                    requestUser.key = account["key"] as? String ?? ""
+                    requestUser.id = session["id"] as? String ?? ""
+                }
+                DispatchQueue.main.async {
+                    Session.user = requestUser
+                    sucess()
+                }
+            } catch let error as NSError {
+                DispatchQueue.main.async {
+                    fail(error.localizedDescription)
+                }
+                print("Failed to load: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
+    // FIXME:
     
     func post() {
         var request = URLRequest(url: URL(string: parseUrl)!)

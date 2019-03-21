@@ -22,6 +22,31 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func login(_ sender: UIButton) {
-        performSegue(withIdentifier: segueIdentifier, sender: nil)
+        btnLogin.isEnabled = false
+        var user = User()
+        user.username = tfLogin.text!
+        user.password = tfPassword.text!
+        requestLogin(user: user)
+    }
+    
+    func requestLogin(user: User) {
+        
+        func sucess() {
+            btnLogin.isEnabled = true
+            performSegue(withIdentifier: segueIdentifier, sender: nil)
+        }
+        
+        func fail(msg: String) {
+            btnLogin.isEnabled = true
+            tfPassword.text = ""
+            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
+                UIAlertAction in
+                self.dismiss(animated: true, completion: nil)
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true, completion: nil)
+        }
+        Requester().login(user: user, sucess: sucess, fail: fail)
     }
 }

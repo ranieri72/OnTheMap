@@ -33,7 +33,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
         
         func fail(msg: String) {
-            
+            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
+            present(alert, animated: true, completion: nil)
         }
         Requester().get(limit: 100, crescent: false, sucess: sucess, fail: fail)
     }
