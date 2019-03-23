@@ -7,16 +7,16 @@
 //
 
 import UIKit
+import SafariServices
 
 class LoginViewController: UIViewController {
     
     @IBOutlet var tfLogin: UITextField!
     @IBOutlet var tfPassword: UITextField!
     @IBOutlet var btnLogin: UIButton!
-    @IBOutlet var navigationBar: UINavigationItem!
     
     let segueIdentifier = "tabSegueFromLogin"
-    // https://auth.udacity.com/sign-up
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -27,6 +27,16 @@ class LoginViewController: UIViewController {
         user.username = tfLogin.text!
         user.password = tfPassword.text!
         requestLogin(user: user)
+    }
+    
+    @IBAction func signUp(_ sender: UIButton) {
+        guard let url = URL(string: "https://auth.udacity.com/sign-up") else { return }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        } else {
+            let svc = SFSafariViewController(url: url)
+            present(svc, animated: true, completion: nil)
+        }
     }
     
     func requestLogin(user: User) {

@@ -13,6 +13,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var mapView: MKMapView!
     
+    let viewControllerID = "addStudentVC"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         requestStudents()
@@ -22,6 +24,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
         mapView.addAnnotation(annotation)
+    }
+    @IBAction func addStudent(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func reloadStudents(_ sender: UIBarButtonItem) {
+        requestStudents()
     }
     
     func requestStudents() {

@@ -32,6 +32,7 @@ class Requester {
                 }
                 let students = try! JSONDecoder().decode(StudentLocation.self, from: data!)
                 UserSession.students = students.results!
+                sucess()
             }
         }
         task.resume()

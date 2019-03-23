@@ -12,6 +12,7 @@ import SafariServices
 class TableViewController: UITableViewController {
     
     let idCell = "studentsCell"
+    let viewControllerID = "addStudentVC"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,16 @@ class TableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+    }
+    
+    @IBAction func addStudent(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
+        present(controller, animated: true, completion: nil)
+    }
+    
+    @IBAction func reloadStudents(_ sender: UIBarButtonItem) {
+        requestStudents()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,5 +55,18 @@ class TableViewController: UITableViewController {
             let svc = SFSafariViewController(url: url)
             present(svc, animated: true, completion: nil)
         }
+    }
+    
+    func requestStudents() {
+        
+        func sucess() {
+            tableView.reloadData()
+        }
+        
+        func fail(msg: String) {
+            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
+            present(alert, animated: true, completion: nil)
+        }
+        Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
     }
 }
