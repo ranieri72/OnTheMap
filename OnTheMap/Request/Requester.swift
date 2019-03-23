@@ -16,7 +16,7 @@ class Requester {
     let parseAppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
     let parseAPIKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
     
-    func get(limit: Int, crescent: Bool, sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
+    func getStudents(limit: Int, crescent: Bool, sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
         let order = crescent ? "updatedAt" : "-updatedAt"
         let url = "\(parseUrl)?limit=\(limit)&order=\(order)"
         var request = URLRequest(url: URL(string: url)!)
@@ -24,27 +24,14 @@ class Requester {
         request.addValue(parseAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error...
-                return
-            }
-            do {
-                let json = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: AnyObject]
-                if let results = json["results"] as? [[String: AnyObject]] {
-                    var students = [StudentLocation]()
-                    for item in results {
-                        let student = StudentLocation(json: item)
-                        students.append(student)
-                    }
-                    Session.students = students
+            
+            DispatchQueue.main.async {
+                if error != nil {
+                    fail(error?.localizedDescription ?? "Erro!")
+                    return
                 }
-                DispatchQueue.main.async {
-                    sucess()
-                }
-            } catch let error as NSError {
-                DispatchQueue.main.async {
-                    fail(error.localizedDescription)
-                }
-                print("Failed to load: \(error.localizedDescription)")
+                let students = try! JSONDecoder().decode(StudentLocation.self, from: data!)
+                UserSession.students = students.results!
             }
         }
         task.resume()
@@ -55,41 +42,28 @@ class Requester {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        // encoding a JSON body, use a Codable struct
-        request.httpBody = "{\"udacity\": {\"username\": \"\(user.username)\", \"password\": \"\(user.password)\"}}".data(using: .utf8)
+        
+        let encodeData = try! JSONEncoder().encode(user)
+        let stringData = String(data: encodeData, encoding: .utf8)!
+        request.httpBody = "{\"udacity\": \(stringData)}".data(using: .utf8)
+        
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error…
-                return
-            }
-            let range = (5..<data!.count)
-            let newData = data?.subdata(in: range)
             
-            do {
-                let json = try JSONSerialization.jsonObject(with: newData!, options: []) as! [String: AnyObject]
-                
-                if let error = json["error"] as? String {
-                    DispatchQueue.main.async {
-                        fail(error)
-                    }
+            DispatchQueue.main.async {
+                if error != nil {
+                    fail(error?.localizedDescription ?? "Erro!")
                     return
                 }
-                
-                var requestUser = User()
-                if let account = json["account"] as? [String: AnyObject],
-                    let session = json["session"] as? [String: AnyObject] {
-                    requestUser.key = account["key"] as? String ?? ""
-                    requestUser.id = session["id"] as? String ?? ""
-                }
-                DispatchQueue.main.async {
-                    Session.user = requestUser
+                let range = (5..<data!.count)
+                let newData = data?.subdata(in: range)
+                let udacitySession = try! JSONDecoder().decode(UdacitySession.self, from: newData!)
+                if udacitySession.error == nil {
+                    UserSession.udacitySession = udacitySession
                     sucess()
+                } else {
+                    fail(udacitySession.error!)
                 }
-            } catch let error as NSError {
-                DispatchQueue.main.async {
-                    fail(error.localizedDescription)
-                }
-                print("Failed to load: \(error.localizedDescription)")
             }
         }
         task.resume()

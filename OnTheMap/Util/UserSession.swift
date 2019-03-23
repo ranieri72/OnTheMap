@@ -6,9 +6,8 @@
 //  Copyright © 2019 Ranieri. All rights reserved.
 //
 
-import Foundation
-
-class Session {
+class UserSession {
     static var user = User()
     static var students = [StudentLocation]()
+    static var udacitySession = UdacitySession()
 }

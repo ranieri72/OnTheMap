@@ -27,8 +27,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func requestStudents() {
         
         func sucess() {
-            for item in Session.students {
-                setPin(lat: item.latitude, long: item.longitude)
+            for item in UserSession.students {
+                setPin(lat: item.latitude ?? 0.0, long: item.longitude ?? 0.0)
             }
         }
         
@@ -36,6 +36,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
         }
-        Requester().get(limit: 100, crescent: false, sucess: sucess, fail: fail)
+        Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
     }
 }

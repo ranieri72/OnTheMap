@@ -24,19 +24,19 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Session.students.count
+        return UserSession.students.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath)
-        let student = Session.students[indexPath.row]
+        let student = UserSession.students[indexPath.row]
         cell.textLabel?.text = student.firstName
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mediaURL = Session.students[indexPath.row].mediaURL
-        guard let url = URL(string: mediaURL) else { return }
+        let mediaURL = UserSession.students[indexPath.row].mediaURL
+        guard let url = URL(string: mediaURL ?? "") else { return }
         
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url)

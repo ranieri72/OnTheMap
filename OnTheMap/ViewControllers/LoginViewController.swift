@@ -16,7 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet var navigationBar: UINavigationItem!
     
     let segueIdentifier = "tabSegueFromLogin"
-    
+    // https://auth.udacity.com/sign-up
     override func viewDidLoad() {
         super.viewDidLoad()
     }

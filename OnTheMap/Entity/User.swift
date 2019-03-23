@@ -8,21 +8,10 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     
-    init() { }
-    
-    init(json: [String:AnyObject]) {
-        id = json["id"] as? String ?? ""
-        key = json["key"] as? String ?? ""
-        first_name = json["first_name"] as? String ?? ""
-        last_name = json["last_name"] as? String ?? ""
-    }
-    
-    var id = ""
-    var key = ""
-    var first_name = ""
-    var last_name = ""
-    var username = ""
-    var password = ""
+    var first_name: String?
+    var last_name: String?
+    var username: String? = ""
+    var password: String? = ""
 }
