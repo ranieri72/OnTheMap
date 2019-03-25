@@ -20,11 +20,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         requestStudents()
     }
     
-    func setPin(lat: Double, long: Double) {
+    func setPin(student: StudentLocation) {
         let annotation = MKPointAnnotation()
-        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        annotation.coordinate = CLLocationCoordinate2D(latitude: student.latitude ?? 0.0, longitude: student.longitude ?? 0.0)
+        annotation.title = student.firstName
+        annotation.subtitle = student.mediaURL
         mapView.addAnnotation(annotation)
     }
+    
     @IBAction func addStudent(_ sender: UIBarButtonItem) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
@@ -39,7 +42,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         func sucess() {
             for item in UserSession.students {
-                setPin(lat: item.latitude ?? 0.0, long: item.longitude ?? 0.0)
+                setPin(student: item)
             }
         }
         

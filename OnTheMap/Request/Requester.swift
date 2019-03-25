@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ranieri. All rights reserved.
 //
 
-import Foundation
+import MapKit
 
 class Requester {
     
@@ -68,6 +68,23 @@ class Requester {
             }
         }
         task.resume()
+    }
+    
+    func getCoordinate( addressString : String,
+                        completionHandler: @escaping(CLPlacemark?, NSError?) -> Void ) {
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+            
+            DispatchQueue.main.async {
+                if error == nil {
+                    if let placemark = placemarks?[0] {
+                        completionHandler(placemark, nil)
+                        return
+                    }
+                }
+                completionHandler(nil, error as NSError?)
+            }
+        }
     }
     
     // FIXME:

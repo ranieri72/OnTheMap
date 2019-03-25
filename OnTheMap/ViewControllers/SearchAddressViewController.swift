@@ -9,15 +9,42 @@
 import UIKit
 import MapKit
 
-class SearchAddressViewController: UIViewController {
+class SearchAddressViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet var mapView: MKMapView!
     
+    var placemark: CLPlacemark?
+    var url: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        configMap()
+    }
+    
+    func configMap() {
+        let lat = placemark?.location?.coordinate.latitude ?? 0.0
+        let long = placemark?.location?.coordinate.longitude ?? 0.0
+        
+        let userCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let eyeCoordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let mapCamera = MKMapCamera(lookingAtCenter: userCoordinate, fromEyeCoordinate: eyeCoordinate, eyeAltitude: 400.0)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        annotation.title = placemark?.name
+        annotation.subtitle = placemark?.locality
+        
+        mapView.delegate = self
+        mapView.mapType = MKMapType.standard
+        mapView.addAnnotation(annotation)
+        mapView.setCamera(mapCamera, animated: true)
     }
     
     @IBAction func finish(_ sender: UIButton) {
+        requestSave()
+    }
+    
+    func requestSave(){
         
     }
 }
