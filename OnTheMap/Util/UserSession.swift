@@ -7,7 +7,7 @@
 //
 
 class UserSession {
-    static var user = User()
-    static var students = [StudentLocation]()
-    static var udacitySession = UdacitySession()
+    static var user: User?
+    static var students: [StudentLocation]?
+    static var udacitySession: UdacitySession?
 }

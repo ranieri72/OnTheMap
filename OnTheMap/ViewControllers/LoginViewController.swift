@@ -49,13 +49,7 @@ class LoginViewController: UIViewController {
         func fail(msg: String) {
             btnLogin.isEnabled = true
             tfPassword.text = ""
-            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                UIAlertAction in
-                self.dismiss(animated: true, completion: nil)
-            }
-            alert.addAction(okAction)
-            present(alert, animated: true, completion: nil)
+            presentAlertView(msg: msg)
         }
         Requester().login(user: user, sucess: sucess, fail: fail)
     }

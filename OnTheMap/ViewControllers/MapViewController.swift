@@ -29,27 +29,54 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func addStudent(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
-        present(controller, animated: true, completion: nil)
+        requestUser()
     }
     
     @IBAction func reloadStudents(_ sender: UIBarButtonItem) {
         requestStudents()
     }
     
+    @IBAction func logout(_ sender: UIBarButtonItem) {
+        requestLogout()
+    }
+    
     func requestStudents() {
         
         func sucess() {
-            for item in UserSession.students {
+            for item in UserSession.students! {
                 setPin(student: item)
             }
         }
         
         func fail(msg: String) {
-            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
-            present(alert, animated: true, completion: nil)
+            presentAlertView(msg: msg)
         }
         Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
+    }
+    
+    func requestUser() {
+        
+        func sucess() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
+            present(controller, animated: true, completion: nil)
+        }
+        
+        func fail(msg: String) {
+            presentAlertView(msg: msg)
+        }
+        Requester().getStudent(sucess: sucess, fail: fail)
+    }
+    
+    func requestLogout() {
+        
+        func sucess() {
+            navigationController?.popViewController(animated: true)
+        }
+        
+        func fail(msg: String) {
+            presentAlertView(msg: msg)
+        }
+        Requester().logout(sucess: sucess, fail: fail)
     }
 }

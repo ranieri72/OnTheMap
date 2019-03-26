@@ -44,7 +44,28 @@ class SearchAddressViewController: UIViewController, MKMapViewDelegate {
         requestSave()
     }
     
-    func requestSave(){
+    @IBAction func back(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func requestSave() {
+        var user = StudentLocation()
+        user.uniqueKey = UserSession.udacitySession?.account?.key
+        user.firstName = UserSession.user?.first_name
+        user.lastName = UserSession.user?.last_name
+        user.mapString = placemark?.locality
+        user.mediaURL = url
+        user.latitude = placemark?.location?.coordinate.latitude
+        user.longitude = placemark?.location?.coordinate.longitude
+        
+        func sucess() {
+            dismiss(animated: true, completion: nil)
+        }
+        
+        func fail(msg: String) {
+            
+        }
+        Requester().postLocation(user: user, sucess: sucess, fail: fail)
         
     }
 }

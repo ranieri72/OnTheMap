@@ -10,7 +10,7 @@ import MapKit
 
 class Requester {
     
-    let udaticyUrl = "https://onthemap-api.udacity.com/v1/session"
+    let udaticyUrl = "https://onthemap-api.udacity.com/v1/"
     let parseUrl = "https://parse.udacity.com/parse/classes/StudentLocation"
     
     let parseAppID = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
@@ -27,7 +27,7 @@ class Requester {
             
             DispatchQueue.main.async {
                 if error != nil {
-                    fail(error?.localizedDescription ?? "Erro!")
+                    fail(error?.localizedDescription ?? "Erro ao recuperar os estudantes!")
                     return
                 }
                 let students = try! JSONDecoder().decode(StudentLocation.self, from: data!)
@@ -39,7 +39,7 @@ class Requester {
     }
     
     func login(user: User, sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
-        var request = URLRequest(url: URL(string: udaticyUrl)!)
+        var request = URLRequest(url: URL(string: "\(udaticyUrl)session")!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -53,7 +53,7 @@ class Requester {
             
             DispatchQueue.main.async {
                 if error != nil {
-                    fail(error?.localizedDescription ?? "Erro!")
+                    fail(error?.localizedDescription ?? "Erro durante o login!")
                     return
                 }
                 let range = (5..<data!.count)
@@ -65,6 +65,36 @@ class Requester {
                 } else {
                     fail(udacitySession.error!)
                 }
+            }
+        }
+        task.resume()
+    }
+    
+    func logout(sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
+        var request = URLRequest(url: URL(string: "\(udaticyUrl)session")!)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            
+            DispatchQueue.main.async {
+                if error != nil {
+                    fail(error?.localizedDescription ?? "Erro durante o logout!")
+                    return
+                }
+                let range = (5..<data!.count)
+                let newData = data?.subdata(in: range)
+                UserSession.user = nil
+                UserSession.udacitySession = nil
+                sucess()
+                print(String(data: newData!, encoding: .utf8)!)
             }
         }
         task.resume()
@@ -87,46 +117,49 @@ class Requester {
         }
     }
     
-    // FIXME:
+    func getStudent(sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
+        let key = UserSession.udacitySession?.account!.key
+        let request = URLRequest(url: URL(string: "\(udaticyUrl)users/\(key!)")!)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            
+            DispatchQueue.main.async {
+                if error != nil {
+                    fail(error?.localizedDescription ?? "Erro ao recuperar os dados do usuário!")
+                    return
+                }
+                let range = (5..<data!.count)
+                let newData = data?.subdata(in: range)
+                let user = try! JSONDecoder().decode(User.self, from: newData!)
+                UserSession.user = user
+                sucess()
+                print(String(data: newData!, encoding: .utf8)!)
+            }
+        }
+        task.resume()
+    }
     
-    func post() {
+    func postLocation(user: StudentLocation, sucess: @escaping () -> Void, fail: @escaping (_ msg: String) -> Void) {
         var request = URLRequest(url: URL(string: parseUrl)!)
-        request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue(parseAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
-        
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error...
-                return
-            }
-            print(String(data: data!, encoding: .utf8)!)
-        }
-        task.resume()
-    }
-    
-    func put() {
-        var request = URLRequest(url: URL(string: parseUrl)!)
         request.addValue(parseAppID, forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue(parseAPIKey, forHTTPHeaderField: "X-Parse-REST-API-Key")
-        
-        request.httpMethod = "PUT"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = "{\"uniqueKey\": \"1234\", \"firstName\": \"John\", \"lastName\": \"Doe\",\"mapString\": \"Mountain View, CA\", \"mediaURL\": \"https://udacity.com\",\"latitude\": 37.386052, \"longitude\": -122.083851}".data(using: .utf8)
-        
-        
+        let encodeData = try! JSONEncoder().encode(user)
+        let stringData = String(data: encodeData, encoding: .utf8)!
+        request.httpBody = stringData.data(using: .utf8)
         let session = URLSession.shared
         let task = session.dataTask(with: request) { data, response, error in
-            if error != nil { // Handle error...
-                return
+            
+            DispatchQueue.main.async {
+                if error != nil {
+                    fail(error?.localizedDescription ?? "Erro ao salvar localização!")
+                    return
+                }
+                sucess()
+                print(String(data: data!, encoding: .utf8)!)
             }
-            print(String(data: data!, encoding: .utf8)!)
         }
         task.resume()
     }
-    
 }

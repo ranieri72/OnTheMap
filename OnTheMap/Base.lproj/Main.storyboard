@@ -41,7 +41,7 @@
                                     <constraint firstAttribute="height" constant="50" id="ETw-U2-5aB"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="MIW-r1-kOV"/>
                                 </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
@@ -51,18 +51,18 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="fNO-HA-xBz"/>
                                     <constraint firstAttribute="height" constant="50" id="rQG-oa-tet"/>
                                 </constraints>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wl2-Yo-HAX">
                                 <rect key="frame" x="62.5" y="435" width="250" height="50"/>
-                                <color key="backgroundColor" red="0.90045934920000004" green="0.41317844390000003" blue="0.40739163760000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.061710961160000001" green="0.72004741429999997" blue="0.90085935589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="4P4-b5-Xwt"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="LzJ-gC-93p"/>
                                 </constraints>
-                                <state key="normal" title="Login">
+                                <state key="normal" title="LOGIN">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -83,7 +83,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ta8-VJ-m0F" firstAttribute="top" secondItem="Wl2-Yo-HAX" secondAttribute="bottom" constant="30" id="7jR-Hs-mca"/>
                             <constraint firstItem="FXc-UO-bK9" firstAttribute="centerX" secondItem="Ocx-IW-zjT" secondAttribute="centerX" id="U9J-xL-Rdt"/>
@@ -151,16 +151,23 @@
                                 </constraints>
                                 <items>
                                     <navigationItem title="On The Map" id="sof-5i-qCj">
-                                        <barButtonItem key="leftBarButtonItem" image="icon_pin" id="MZu-T9-iez">
+                                        <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="tLG-cj-YN0">
                                             <connections>
-                                                <action selector="addStudent:" destination="BYZ-38-t0r" id="Znz-Cb-UxU"/>
+                                                <action selector="logout:" destination="BYZ-38-t0r" id="L2J-lI-dEK"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="bco-2T-11w">
-                                            <connections>
-                                                <action selector="reloadStudents:" destination="BYZ-38-t0r" id="0xP-sn-uHM"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem image="icon_addpin" id="MZu-T9-iez">
+                                                <connections>
+                                                    <action selector="addStudent:" destination="BYZ-38-t0r" id="Znz-Cb-UxU"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem image="icon_refresh" id="bco-2T-11w">
+                                                <connections>
+                                                    <action selector="reloadStudents:" destination="BYZ-38-t0r" id="0xP-sn-uHM"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -199,21 +206,28 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
                                 <navigationItem title="On The Map" id="6P1-L3-S5f">
-                                    <barButtonItem key="leftBarButtonItem" image="icon_pin" id="5HI-Sl-zg8">
+                                    <barButtonItem key="leftBarButtonItem" title="LOGOUT" id="dn8-Iq-DU1">
                                         <connections>
-                                            <action selector="addStudent:" destination="lCf-Iv-Roe" id="fP2-65-ufA"/>
+                                            <action selector="logout:" destination="lCf-Iv-Roe" id="0li-SA-Yd8"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem key="rightBarButtonItem" image="icon_refresh" id="qNR-8G-EpC">
-                                        <connections>
-                                            <action selector="reloadStudents:" destination="lCf-Iv-Roe" id="TCS-Sp-E7N"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <rightBarButtonItems>
+                                        <barButtonItem image="icon_addpin" id="5HI-Sl-zg8">
+                                            <connections>
+                                                <action selector="addStudent:" destination="lCf-Iv-Roe" id="fP2-65-ufA"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem image="icon_refresh" id="qNR-8G-EpC">
+                                            <connections>
+                                                <action selector="reloadStudents:" destination="lCf-Iv-Roe" id="TCS-Sp-E7N"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </rightBarButtonItems>
                                 </navigationItem>
                             </items>
                         </navigationBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="studentsCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="yEK-WT-Voj" style="IBUITableViewCellStyleDefault" id="aVm-Vt-v45">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="studentsCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="studentsCell" textLabel="yEK-WT-Voj" detailTextLabel="wt0-ks-jK5" imageView="ii0-Fi-plA" style="IBUITableViewCellStyleSubtitle" id="aVm-Vt-v45">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aVm-Vt-v45" id="b4O-hC-pVR">
@@ -221,12 +235,23 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yEK-WT-Voj">
-                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <rect key="frame" x="55" y="5" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wt0-ks-jK5">
+                                            <rect key="frame" x="55" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="icon_pin" id="ii0-Fi-plA">
+                                            <rect key="frame" x="16" y="9" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -268,11 +293,11 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CI5-Es-Vq7">
-                                <rect key="frame" x="62.5" y="428.5" width="250" height="30"/>
+                                <rect key="frame" x="62.5" y="428.5" width="250" height="50"/>
                                 <color key="backgroundColor" red="0.061710961163043976" green="0.72004741430282593" blue="0.90085935592651367" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="5Gm-9n-34f"/>
-                                    <constraint firstAttribute="height" constant="30" id="sEm-m9-R6h"/>
+                                    <constraint firstAttribute="height" constant="50" id="sEm-m9-R6h"/>
                                 </constraints>
                                 <state key="normal" title="FIND LOCATION">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -346,10 +371,10 @@
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pBO-f1-c5D">
-                                <rect key="frame" x="30" y="557" width="315" height="60"/>
+                                <rect key="frame" x="30" y="567" width="315" height="50"/>
                                 <color key="backgroundColor" red="0.061710961160000001" green="0.72004741429999997" blue="0.90085935589999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="zDi-ff-d06"/>
+                                    <constraint firstAttribute="height" constant="50" id="zDi-ff-d06"/>
                                 </constraints>
                                 <state key="normal" title="FINISH">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -364,7 +389,13 @@
                                     <constraint firstAttribute="height" constant="50" id="GoK-IB-CGN"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Add Location" id="QjR-5l-0GD"/>
+                                    <navigationItem title="Add Location" id="QjR-5l-0GD">
+                                        <barButtonItem key="leftBarButtonItem" image="icon_back-arrow" id="bXx-3Q-Vok">
+                                            <connections>
+                                                <action selector="back:" destination="eY7-YM-NCB" id="8fg-9m-Lmp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
@@ -393,6 +424,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="icon_addpin" width="24" height="24"/>
+        <image name="icon_back-arrow" width="24" height="24"/>
         <image name="icon_listview-deselected" width="75" height="50"/>
         <image name="icon_listview-selected" width="75" height="50"/>
         <image name="icon_mapview-deselected" width="75" height="50"/>

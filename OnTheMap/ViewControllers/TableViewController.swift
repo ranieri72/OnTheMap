@@ -25,9 +25,11 @@ class TableViewController: UITableViewController {
     }
     
     @IBAction func addStudent(_ sender: UIBarButtonItem) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
-        present(controller, animated: true, completion: nil)
+        requestUser()
+    }
+    
+    @IBAction func logout(_ sender: UIBarButtonItem) {
+        requestLogout()
     }
     
     @IBAction func reloadStudents(_ sender: UIBarButtonItem) {
@@ -35,18 +37,19 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return UserSession.students.count
+        return UserSession.students?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: idCell, for: indexPath)
-        let student = UserSession.students[indexPath.row]
-        cell.textLabel?.text = student.firstName
+        let student = UserSession.students?[indexPath.row]
+        cell.textLabel?.text = student?.firstName
+        cell.detailTextLabel?.text = student?.mediaURL
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let mediaURL = UserSession.students[indexPath.row].mediaURL
+        let mediaURL = UserSession.students?[indexPath.row].mediaURL
         guard let url = URL(string: mediaURL ?? "") else { return }
         
         if #available(iOS 10.0, *) {
@@ -64,9 +67,34 @@ class TableViewController: UITableViewController {
         }
         
         func fail(msg: String) {
-            let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: .alert)
-            present(alert, animated: true, completion: nil)
+            presentAlertView(msg: msg)
         }
         Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
+    }
+    
+    func requestUser() {
+        
+        func sucess() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: viewControllerID)
+            present(controller, animated: true, completion: nil)
+        }
+        
+        func fail(msg: String) {
+            presentAlertView(msg: msg)
+        }
+        Requester().getStudent(sucess: sucess, fail: fail)
+    }
+    
+    func requestLogout() {
+        
+        func sucess() {
+            navigationController?.popViewController(animated: true)
+        }
+        
+        func fail(msg: String) {
+            presentAlertView(msg: msg)
+        }
+        Requester().logout(sucess: sucess, fail: fail)
     }
 }

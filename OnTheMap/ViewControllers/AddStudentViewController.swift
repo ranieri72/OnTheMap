@@ -44,13 +44,7 @@ class AddStudentViewController: UIViewController {
             if error == nil {
                 performSegue(withIdentifier: segueIdentifier, sender: placemark)
             } else {
-                let alert = UIAlertController(title: "Alert", message: error?.localizedDescription, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) {
-                    UIAlertAction in
-                    self.dismiss(animated: true, completion: nil)
-                }
-                alert.addAction(okAction)
-                present(alert, animated: true, completion: nil)
+                presentAlertView(msg: error?.localizedDescription ?? "Erro ao localizar endereço!")
             }
         }
         Requester().getCoordinate(addressString: tfAddress.text!, completionHandler: finish)
