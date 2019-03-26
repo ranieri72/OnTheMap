@@ -47,6 +47,6 @@ class AddStudentViewController: UIViewController {
                 presentAlertView(msg: error?.localizedDescription ?? "Erro ao localizar endereço!")
             }
         }
-        Requester().getCoordinate(addressString: tfAddress.text!, completionHandler: finish)
+        Requester.getCoordinate(self, addressString: tfAddress.text!, completionHandler: finish)
     }
 }

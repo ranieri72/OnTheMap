@@ -51,6 +51,6 @@ class LoginViewController: UIViewController {
             tfPassword.text = ""
             presentAlertView(msg: msg)
         }
-        Requester().login(user: user, sucess: sucess, fail: fail)
+        Requester.login(self, user: user, sucess: sucess, fail: fail)
     }
 }

@@ -69,7 +69,7 @@ class TableViewController: UITableViewController {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
+        Requester.getStudents(self, limit: 100, crescent: false, sucess: sucess, fail: fail)
     }
     
     func requestUser() {
@@ -83,7 +83,7 @@ class TableViewController: UITableViewController {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().getStudent(sucess: sucess, fail: fail)
+        Requester.getStudent(self, sucess: sucess, fail: fail)
     }
     
     func requestLogout() {
@@ -95,6 +95,6 @@ class TableViewController: UITableViewController {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().logout(sucess: sucess, fail: fail)
+        Requester.logout(self, sucess: sucess, fail: fail)
     }
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import SafariServices
 
 class MapViewController: UIViewController, MKMapViewDelegate {
     
@@ -17,6 +18,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         requestStudents()
     }
     
@@ -26,6 +28,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotation.title = student.firstName
         annotation.subtitle = student.mediaURL
         mapView.addAnnotation(annotation)
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let mediaURL: String? = view.annotation?.subtitle ?? ""
+        guard let url = URL(string: mediaURL ?? "") else { return }
+        
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        } else {
+            let svc = SFSafariViewController(url: url)
+            present(svc, animated: true, completion: nil)
+        }
     }
     
     @IBAction func addStudent(_ sender: UIBarButtonItem) {
@@ -51,7 +65,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().getStudents(limit: 100, crescent: false, sucess: sucess, fail: fail)
+        Requester.getStudents(self, limit: 100, crescent: false, sucess: sucess, fail: fail)
     }
     
     func requestUser() {
@@ -65,7 +79,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().getStudent(sucess: sucess, fail: fail)
+        Requester.getStudent(self, sucess: sucess, fail: fail)
     }
     
     func requestLogout() {
@@ -77,6 +91,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         func fail(msg: String) {
             presentAlertView(msg: msg)
         }
-        Requester().logout(sucess: sucess, fail: fail)
+        Requester.logout(self, sucess: sucess, fail: fail)
     }
 }

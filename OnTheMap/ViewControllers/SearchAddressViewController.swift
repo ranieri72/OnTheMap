@@ -45,7 +45,7 @@ class SearchAddressViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func back(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     func requestSave() {
@@ -65,7 +65,7 @@ class SearchAddressViewController: UIViewController, MKMapViewDelegate {
         func fail(msg: String) {
             
         }
-        Requester().postLocation(user: user, sucess: sucess, fail: fail)
+        Requester.postLocation(self, user: user, sucess: sucess, fail: fail)
         
     }
 }
