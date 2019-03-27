@@ -85,7 +85,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func requestLogout() {
         
         func sucess() {
-            navigationController?.popViewController(animated: true)
+            dismiss(animated: true, completion: nil)
         }
         
         func fail(msg: String) {

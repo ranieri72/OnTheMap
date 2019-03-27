@@ -63,7 +63,7 @@ class SearchAddressViewController: UIViewController, MKMapViewDelegate {
         }
         
         func fail(msg: String) {
-            
+            presentAlertView(msg: msg)
         }
         Requester.postLocation(self, user: user, sucess: sucess, fail: fail)
         

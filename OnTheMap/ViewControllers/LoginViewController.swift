@@ -17,10 +17,6 @@ class LoginViewController: UIViewController {
     
     let segueIdentifier = "tabSegueFromLogin"
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     @IBAction func login(_ sender: UIButton) {
         btnLogin.isEnabled = false
         var user = User()
